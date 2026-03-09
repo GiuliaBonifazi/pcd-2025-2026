@@ -3,21 +3,25 @@ package pcd.lab04.ex01_synchwithsem;
 import java.util.concurrent.Semaphore;
 
 public class Ponger extends ActiveComponent {
-    private final Semaphore mutex;
+    private final Semaphore pingDoneEvent;
+    private final Semaphore pongDoneEvent;
 	
-	public Ponger(Semaphore mutex) {
-        this.mutex = mutex;
+	public Ponger(
+        Semaphore pongDoneEvent,
+        Semaphore pingDoneEvent
+    ) {
+        this.pingDoneEvent = pingDoneEvent;
+        this.pongDoneEvent = pongDoneEvent;
 	}	
 	
 	public void run() {
         while (true) {
             try {
-                mutex.acquire();
+                pingDoneEvent.acquire();
                 println("pong");
+                pongDoneEvent.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-                mutex.release();
             }
         }
 	}

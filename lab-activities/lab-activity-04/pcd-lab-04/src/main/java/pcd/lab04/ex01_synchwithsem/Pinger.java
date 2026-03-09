@@ -1,13 +1,24 @@
 package pcd.lab04.ex01_synchwithsem;
 
-public class Pinger extends ActiveComponent {
+import java.util.concurrent.Semaphore;
 
-	public Pinger() {
+public class Pinger extends ActiveComponent {
+    private final Semaphore mutex;
+
+	public Pinger(Semaphore mutex) {
+        this.mutex = mutex;
 	}	
 	
 	public void run() {
 		while (true) {
-			println("ping");
+            try {
+                mutex.acquire();
+                println("ping");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                mutex.release();
+            }
 		}
 	}
 }

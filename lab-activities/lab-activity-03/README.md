@@ -60,7 +60,7 @@ PCD a.y. 2025-2026 - ISI LM UNIBO - Cesena Campus
 
        For instance: mounting the `/pcd-jpf` directory included in the repo (in `lab-activity-03`):
 
-       `docker-compose run --rm -v <path to PCD repo>/pcd-2025-2026/lab-activities/lab-activity-03/pcd-jpf:/pcd-jpf jpf-dev` 
+       `docker-compose run --rm -v "C:\Users\giuli\Desktop\Uni_PARTE_2\PCD\pcd-2025-2026\lab-activities\lab-activity-03\pcd-jpf:/pcd-jpf" jpf-dev` 
 
 
     5) Build JPF
@@ -105,4 +105,10 @@ PCD a.y. 2025-2026 - ISI LM UNIBO - Cesena Campus
   - **Example #5** - Detecting deadlocks
     - `pcd.lab03.jpf.TestDeadlock`
     - `java -jar build/RunJPF.jar /pcd-jpf/src/main/java/pcd/lab03/jpf/TestDeadlock.jpf`
+
+
+    target: la classe su cui voglio effetttuare il model checking
+    classpath: il classpath
+    listener: 
+    report...: quante informazioni voglio nel report
  

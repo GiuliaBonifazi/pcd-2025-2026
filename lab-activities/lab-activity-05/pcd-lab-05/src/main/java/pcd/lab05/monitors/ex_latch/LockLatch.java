@@ -22,7 +22,7 @@ public class LockLatch implements Latch {
         try {
             lock.lock();
             nHits = nHits + 1;
-            if (nHits == nAgents) finishedCountDown.signal();
+            if (nHits == nAgents) finishedCountDown.signalAll();
         } finally {
             lock.unlock();
         }
@@ -30,6 +30,11 @@ public class LockLatch implements Latch {
 
     @Override
     public void await() throws InterruptedException {
-        finishedCountDown.await();
+        try {
+            lock.lock();
+            while (nHits < nAgents) finishedCountDown.await();
+        } finally {
+            lock.unlock();
+        }
     }
 }

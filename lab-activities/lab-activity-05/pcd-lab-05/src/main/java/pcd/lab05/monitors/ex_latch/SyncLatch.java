@@ -22,7 +22,9 @@ public class SyncLatch implements Latch {
 	@Override
 	public synchronized void countDown() {
 		nCalled =  nCalled + 1;
-		notify();
+		// se metto sempre notify, sveglio continuamente il thread che non può passare
+		// notify();
+		if (nCalled == nAgents) notifyAll();
 	}
 
 	
